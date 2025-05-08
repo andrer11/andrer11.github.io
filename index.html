@@ -1,65 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fullscreen Figma Iframe</title>
+  <meta charset="UTF-8">
+  <title>Figma Fullscreen Hack</title>
   <style>
-    body {
+    html, body {
       margin: 0;
-      font-family: sans-serif;
-      background-color: #111;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      padding: 0;
+      background: black;
+    }
+    video, iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw;
       height: 100vh;
-    }
-    #iframe-container {
-      width: 100%;
-      height: 100vh;
-      display: none;
-    }
-    #iframe-container iframe {
-      width: 100%;
-      height: 100%;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-    }
-    button {
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      background: #66bb6a;
-      color: white;
       border: none;
-      border-radius: 8px;
-      cursor: pointer;
+      z-index: 0;
+    }
+    iframe {
+      z-index: 1;
+      display: none;
     }
   </style>
 </head>
 <body>
-  <button onclick="openFullscreen()">Open Figma in Fullscreen</button>
+  <video id="fs-video" playsinline muted loop>
+    <source src="black.mp4" type="video/mp4">
+  </video>
 
-  <div id="iframe-container">
-    <iframe 
-      src="https://embed.figma.com/proto/jJap66LO1edMKB23bvOyBp/Greenpeace-Project-Work?page-id=218%3A4654&node-id=412-5796&viewport=-3598%2C-3816%2C0.13&scaling=scale-down&content-scaling=fixed&starting-point-node-id=2684%3A23003&show-proto-sidebar=1&embed-host=share"
-      allowfullscreen>
-    </iframe>
-  </div>
+  <iframe
+    id="figmaIframe"
+    src="https://embed.figma.com/proto/jJap66LO1edMKB23bvOyBp/Greenpeace-Project-Work?page-id=218%3A4654&node-id=412-5796&viewport=-3598%2C-3816%2C0.13&scaling=scale-down&content-scaling=fixed&starting-point-node-id=2684%3A23003&show-proto-sidebar=1&embed-host=share"
+    allowfullscreen
+  ></iframe>
 
   <script>
-    function openFullscreen() {
-      const container = document.getElementById("iframe-container");
-      container.style.display = "block";
+    const video = document.getElementById('fs-video');
+    const iframe = document.getElementById('figmaIframe');
 
-      if (container.requestFullscreen) {
-        container.requestFullscreen();
-      } else if (container.webkitRequestFullscreen) {
-        container.webkitRequestFullscreen(); // iOS Safari
-      } else {
-        alert("Fullscreen not supported on this device.");
+    video.addEventListener('click', () => {
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.webkitEnterFullscreen) {
+        video.webkitEnterFullscreen(); // fallback for iOS video fullscreen
       }
-    }
+
+      iframe.style.display = 'block';
+    });
   </script>
 </body>
 </html>
