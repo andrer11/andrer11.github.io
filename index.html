@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fullscreen Figma Iframe</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    #iframe-container {
+      width: 100%;
+      height: 100vh;
+      display: none;
+    }
+    #iframe-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    button {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background: #66bb6a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="openFullscreen()">Open Figma in Fullscreen</button>
+
+  <div id="iframe-container">
+    <iframe 
+      src="https://embed.figma.com/proto/jJap66LO1edMKB23bvOyBp/Greenpeace-Project-Work?page-id=218%3A4654&node-id=412-5796&viewport=-3598%2C-3816%2C0.13&scaling=scale-down&content-scaling=fixed&starting-point-node-id=2684%3A23003&show-proto-sidebar=1&embed-host=share"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <script>
+    function openFullscreen() {
+      const container = document.getElementById("iframe-container");
+      container.style.display = "block";
+
+      if (container.requestFullscreen) {
+        container.requestFullscreen();
+      } else if (container.webkitRequestFullscreen) {
+        container.webkitRequestFullscreen(); // iOS Safari
+      } else {
+        alert("Fullscreen not supported on this device.");
+      }
+    }
+  </script>
+</body>
+</html>
